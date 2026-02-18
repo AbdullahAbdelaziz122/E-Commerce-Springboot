@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.abdullah.ShoppingCart.services.IAuthenticationService;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -29,7 +30,7 @@ public class AuthenticationService implements IAuthenticationService{
 	@Value("${jwt.secret}")
 	private String secretKey;
 
-	@Value("${jwt.expiry}")
+	@Value("${jwt.expiration}")
 	private Long jwtExpiry;
 
 
@@ -55,6 +56,21 @@ public class AuthenticationService implements IAuthenticationService{
 
 	}
 
+	@Override
+	public UserDetails validateToken(String token) {
+		String username = extractUsername(token);
+		return userDetailsService.loadUserByUsername(username);
+		
+	}
+
+	private String extractUsername(String token){
+		Claims claims = Jwts.parserBuilder()
+		.setSigningKey(getSigningKey())
+		.build()
+		.parseClaimsJws(token)
+		.getBody();
+		return claims.getSubject();
+	}
 
 	private Key getSigningKey(){
 		byte[] keyBytes = secretKey.getBytes();

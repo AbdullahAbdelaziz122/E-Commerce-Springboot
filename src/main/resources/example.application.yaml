@@ -28,7 +28,9 @@ spring:
   
 
 # JWT Configuration
-
+jwt:
+  secret: mySecretKeyWithAtLeast32CharactersLongForHS256Algorithm
+  expiration: 86400000
 # Logging
 logging:
   level:
