@@ -13,4 +13,5 @@ import com.abdullah.ShoppingCart.domain.models.User;
 public interface UserRepository extends JpaRepository<User, UUID>{
 	
 	Optional<User> findByEmail(String email);
+	Boolean existsByEmail(String email);
 }

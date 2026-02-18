@@ -37,7 +37,7 @@ public class SecurityConfig {
 			throws Exception {
 		http
 				.authorizeHttpRequests(auth -> auth
-						.requestMatchers(HttpMethod.POST, "/api/v1/auth").permitAll()
+						.requestMatchers(HttpMethod.POST, "/api/v1/auth/**").permitAll()
 						.anyRequest().authenticated())
 				.csrf(csrf -> csrf.disable())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
