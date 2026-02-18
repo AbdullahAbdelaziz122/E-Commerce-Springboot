@@ -10,12 +10,15 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.abdullah.ShoppingCart.domain.dtos.ApiErrorResponse;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
 	
 	@ExceptionHandler(BadCredentialsException.class)
 	public ResponseEntity<ApiErrorResponse> handleBadCreditialException(BadCredentialsException ex) {
-
+		log.warn("=== BadCredentialsException caught ===");
 		ApiErrorResponse error = ApiErrorResponse.builder().status(HttpStatus.UNAUTHORIZED.value())
 				.message("Incorrect Username or Password").timestamp(LocalDateTime.now()).build();
 
