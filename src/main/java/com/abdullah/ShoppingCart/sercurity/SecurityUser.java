@@ -2,6 +2,7 @@ package com.abdullah.ShoppingCart.sercurity;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.GrantedAuthority;
@@ -60,5 +61,9 @@ public class SecurityUser implements UserDetails {
 
 		return true;
 	}
+
+    public UUID getId() {
+        return user.getId();
+    }
 
 }
